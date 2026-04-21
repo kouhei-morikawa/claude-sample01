@@ -2,7 +2,7 @@ import { useState, FormEvent } from 'react'
 import { Todo, Status, STATUS_LABELS, STATUS_LIST } from '../types/todo'
 
 interface Props {
-  onSubmit: (data: Omit<Todo, 'id' | 'createdAt'>) => void
+  onSubmit: (data: Omit<Todo, 'id' | 'userId' | 'createdAt'>) => void
   onClose: () => void
   initial?: Todo
 }
