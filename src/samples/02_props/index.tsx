@@ -23,10 +23,13 @@ type ProfileCardProps = {
 // -------------------------------------------------
 function ProfileCard({ name, role, emoji, color = '#f8f9fa' }: ProfileCardProps) {
   return (
-    <div style={{ ...styles.card, background: color }}>
-      <span style={styles.emoji}>{emoji}</span>
-      <h3 style={styles.name}>{name}</h3>
-      <p style={styles.role}>{role}</p>
+    <div
+      className="rounded-xl p-5 min-w-[160px] text-center border border-slate-200"
+      style={{ background: color }}
+    >
+      <span className="text-4xl">{emoji}</span>
+      <h3 className="mt-2 mb-1 text-base font-semibold">{name}</h3>
+      <p className="m-0 text-sm text-slate-500">{role}</p>
     </div>
   )
 }
@@ -37,16 +40,16 @@ function ProfileCard({ name, role, emoji, color = '#f8f9fa' }: ProfileCardProps)
 // -------------------------------------------------
 function PropsDemo() {
   return (
-    <div style={styles.container}>
-      <h2 style={styles.title}>🎴 Props の基本</h2>
+    <div className="p-6 max-w-2xl">
+      <h2 className="text-2xl font-bold mb-4">🎴 Props の基本</h2>
 
-      <p style={styles.note}>
+      <p className="bg-sky-50 border border-sky-200 rounded-lg px-4 py-3 mb-5 leading-relaxed">
         <strong>Props</strong> は親コンポーネントから子コンポーネントへ渡す<strong>データ</strong>です。<br />
         同じ <code>ProfileCard</code> を異なる Props で3回使い回しています。
       </p>
 
       {/* 同じコンポーネントに異なる Props を渡すだけで見た目が変わる */}
-      <div style={styles.cardList}>
+      <div className="flex gap-4 flex-wrap mb-6">
         <ProfileCard
           name="田中 花子"
           role="フロントエンドエンジニア"
@@ -67,9 +70,9 @@ function PropsDemo() {
         />
       </div>
 
-      <div style={styles.tip}>
-        <p>📌 ポイント</p>
-        <ul>
+      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+        <p className="font-semibold mb-2">📌 ポイント</p>
+        <ul className="leading-loose pl-5 mb-0">
           <li>Props はコンポーネントの引数です（関数の引数と同じ仕組み）</li>
           <li>型を <code>type</code> や <code>interface</code> で宣言することで安全に使えます</li>
           <li><code>?</code> をつけると省略可能な Props になります</li>
@@ -79,59 +82,6 @@ function PropsDemo() {
       </div>
     </div>
   )
-}
-
-// -------------------------------------------------
-// スタイル
-// -------------------------------------------------
-const styles: Record<string, React.CSSProperties> = {
-  container: {
-    padding: '24px',
-    maxWidth: '700px',
-  },
-  title: {
-    fontSize: '1.5rem',
-    marginBottom: '16px',
-  },
-  note: {
-    background: '#f0f9ff',
-    border: '1px solid #bae6fd',
-    borderRadius: '8px',
-    padding: '12px 16px',
-    marginBottom: '20px',
-    lineHeight: '1.7',
-  },
-  cardList: {
-    display: 'flex',
-    gap: '16px',
-    flexWrap: 'wrap',
-    marginBottom: '24px',
-  },
-  card: {
-    borderRadius: '12px',
-    padding: '20px',
-    minWidth: '160px',
-    textAlign: 'center',
-    border: '1px solid #e2e8f0',
-  },
-  emoji: {
-    fontSize: '2.5rem',
-  },
-  name: {
-    margin: '8px 0 4px',
-    fontSize: '1rem',
-  },
-  role: {
-    margin: 0,
-    fontSize: '0.85rem',
-    color: '#64748b',
-  },
-  tip: {
-    background: '#fefce8',
-    border: '1px solid #fde68a',
-    borderRadius: '8px',
-    padding: '16px',
-  },
 }
 
 export default PropsDemo

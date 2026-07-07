@@ -21,17 +21,17 @@ function Greeting() {
 // -------------------------------------------------
 function HelloWorld() {
   return (
-    <div style={styles.container}>
-      <h2 style={styles.title}>👋 Hello, World!</h2>
+    <div className="p-6 max-w-2xl">
+      <h2 className="text-2xl font-bold mb-4">👋 Hello, World!</h2>
 
       {/* Greeting コンポーネントを呼び出す */}
       <Greeting />
 
-      <p style={styles.note}>
+      <p className="bg-sky-50 border border-sky-200 rounded-lg px-4 py-3 mt-4 leading-relaxed">
         ポイント：React の UI は <strong>コンポーネント</strong> という部品の組み合わせで作ります。
       </p>
 
-      <ul style={styles.list}>
+      <ul className="leading-loose pl-6">
         <li>コンポーネントは <code>function</code> キーワードで定義します</li>
         <li>コンポーネントの名前は <strong>大文字</strong> で始めます（例：<code>Greeting</code>）</li>
         <li>JSX は HTML に似た構文ですが、実は JavaScript です</li>
@@ -39,31 +39,6 @@ function HelloWorld() {
       </ul>
     </div>
   )
-}
-
-// -------------------------------------------------
-// スタイル（見た目の定義）
-// -------------------------------------------------
-const styles: Record<string, React.CSSProperties> = {
-  container: {
-    padding: '24px',
-    maxWidth: '600px',
-  },
-  title: {
-    fontSize: '1.5rem',
-    marginBottom: '16px',
-  },
-  note: {
-    background: '#f0f9ff',
-    border: '1px solid #bae6fd',
-    borderRadius: '8px',
-    padding: '12px 16px',
-    marginTop: '16px',
-  },
-  list: {
-    lineHeight: '1.8',
-    paddingLeft: '24px',
-  },
 }
 
 export default HelloWorld

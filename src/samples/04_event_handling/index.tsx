@@ -41,21 +41,24 @@ function EventHandling() {
   }
 
   return (
-    <div style={styles.container}>
-      <h2 style={styles.title}>🖱️ イベントハンドリング</h2>
+    <div className="p-6 max-w-2xl">
+      <h2 className="text-2xl font-bold mb-4">🖱️ イベントハンドリング</h2>
 
-      <p style={styles.note}>
+      <p className="bg-sky-50 border border-sky-200 rounded-lg px-4 py-3 mb-5 leading-relaxed">
         React では <code>on〇〇</code> という属性にハンドラ関数を渡します。<br />
         例：<code>onClick</code>、<code>onChange</code>、<code>onSubmit</code>、<code>onMouseMove</code>
       </p>
 
       {/* ① クリックイベント */}
-      <section style={styles.section}>
-        <h3>① onClick（クリック）</h3>
-        <button style={styles.btn} onClick={handleClick}>
+      <section className="mb-7 p-4 bg-slate-50 rounded-xl">
+        <h3 className="font-semibold mb-3">① onClick（クリック）</h3>
+        <button
+          className="px-5 py-2 rounded-lg border border-slate-300 bg-white cursor-pointer hover:bg-slate-100 mr-2 mb-2"
+          onClick={handleClick}
+        >
           クリックしてね
         </button>
-        <ul style={styles.log}>
+        <ul className="list-none p-0 mt-2 text-sm text-slate-600">
           {clickLog.map((log, i) => (
             <li key={i} style={{ opacity: 1 - i * 0.15 }}>{log}</li>
           ))}
@@ -63,28 +66,31 @@ function EventHandling() {
       </section>
 
       {/* ② 入力イベント + フォーム送信 */}
-      <section style={styles.section}>
-        <h3>② onChange（入力）+ onSubmit（送信）</h3>
-        <form onSubmit={handleSubmit} style={styles.form}>
+      <section className="mb-7 p-4 bg-slate-50 rounded-xl">
+        <h3 className="font-semibold mb-3">② onChange（入力）+ onSubmit（送信）</h3>
+        <form onSubmit={handleSubmit} className="flex gap-2 mb-2">
           <input
             type="text"
             value={inputValue}
             onChange={handleChange}
             placeholder="テキストを入力..."
-            style={styles.input}
+            className="flex-1 px-3 py-2 rounded-md border border-slate-300 text-base"
           />
-          <button type="submit" style={styles.btn}>送信</button>
+          <button
+            type="submit"
+            className="px-5 py-2 rounded-lg border border-slate-300 bg-white cursor-pointer hover:bg-slate-100"
+          >送信</button>
         </form>
         {/* リアルタイムで入力値を表示 */}
         <p>入力中：<strong>{inputValue || '（未入力）'}</strong>（文字数：{inputValue.length}）</p>
-        {submitted && <p style={styles.success}>✅ 送信されました：「{submitted}」</p>}
+        {submitted && <p className="text-green-700 font-bold">✅ 送信されました：「{submitted}」</p>}
       </section>
 
       {/* ③ マウス移動イベント */}
-      <section style={styles.section}>
-        <h3>③ onMouseMove（マウス移動）</h3>
+      <section className="mb-7 p-4 bg-slate-50 rounded-xl">
+        <h3 className="font-semibold mb-3">③ onMouseMove（マウス移動）</h3>
         <div
-          style={styles.mouseArea}
+          className="h-28 bg-sky-100 rounded-xl flex flex-col items-center justify-center cursor-crosshair select-none"
           onMouseMove={handleMouseMove}
         >
           <p>このエリアでマウスを動かしてみてください</p>
@@ -92,9 +98,9 @@ function EventHandling() {
         </div>
       </section>
 
-      <div style={styles.tip}>
-        <p>📌 ポイント</p>
-        <ul>
+      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mt-4">
+        <p className="font-semibold mb-2">📌 ポイント</p>
+        <ul className="leading-loose pl-5 mb-0">
           <li>イベントハンドラには <strong>関数の参照</strong> を渡します（<code>onClick={'{handleClick}'}</code>）</li>
           <li>引数が必要なときは <strong>アロー関数</strong> で包みます（<code>onClick={'{() => doSomething(id)}'}</code>）</li>
           <li><code>onChange</code> で入力値を取得するには <code>e.target.value</code> を使います</li>
@@ -103,83 +109,6 @@ function EventHandling() {
       </div>
     </div>
   )
-}
-
-// -------------------------------------------------
-// スタイル
-// -------------------------------------------------
-const styles: Record<string, React.CSSProperties> = {
-  container: {
-    padding: '24px',
-    maxWidth: '640px',
-  },
-  title: {
-    fontSize: '1.5rem',
-    marginBottom: '16px',
-  },
-  note: {
-    background: '#f0f9ff',
-    border: '1px solid #bae6fd',
-    borderRadius: '8px',
-    padding: '12px 16px',
-    marginBottom: '20px',
-    lineHeight: '1.7',
-  },
-  section: {
-    marginBottom: '28px',
-    padding: '16px',
-    background: '#f8fafc',
-    borderRadius: '10px',
-  },
-  form: {
-    display: 'flex',
-    gap: '8px',
-    marginBottom: '8px',
-  },
-  input: {
-    flex: 1,
-    padding: '8px 12px',
-    borderRadius: '6px',
-    border: '1px solid #cbd5e1',
-    fontSize: '1rem',
-  },
-  btn: {
-    padding: '8px 20px',
-    borderRadius: '8px',
-    border: '1px solid #cbd5e1',
-    background: '#fff',
-    cursor: 'pointer',
-    fontSize: '0.95rem',
-  },
-  log: {
-    listStyle: 'none',
-    padding: 0,
-    margin: '8px 0 0',
-    fontSize: '0.9rem',
-    color: '#475569',
-  },
-  mouseArea: {
-    height: '120px',
-    background: '#e0f2fe',
-    borderRadius: '10px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    cursor: 'crosshair',
-    userSelect: 'none',
-  },
-  success: {
-    color: '#16a34a',
-    fontWeight: 'bold',
-  },
-  tip: {
-    background: '#fefce8',
-    border: '1px solid #fde68a',
-    borderRadius: '8px',
-    padding: '16px',
-    marginTop: '16px',
-  },
 }
 
 export default EventHandling

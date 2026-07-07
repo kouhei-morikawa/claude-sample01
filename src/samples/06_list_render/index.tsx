@@ -24,12 +24,12 @@ type Fruit = {
 // 初期データ
 // -------------------------------------------------
 const INITIAL_FRUITS: Fruit[] = [
-  { id: 1, name: 'バナナ',     emoji: '🍌', category: 'tropical', price: 120 },
-  { id: 2, name: 'オレンジ',   emoji: '🍊', category: 'citrus',   price: 150 },
-  { id: 3, name: 'いちご',     emoji: '🍓', category: 'berry',    price: 350 },
-  { id: 4, name: 'マンゴー',   emoji: '🥭', category: 'tropical', price: 500 },
-  { id: 5, name: 'レモン',     emoji: '🍋', category: 'citrus',   price: 100 },
-  { id: 6, name: 'ブルーベリー', emoji: '🫐', category: 'berry',  price: 280 },
+  { id: 1, name: 'バナナ',      emoji: '🍌', category: 'tropical', price: 120 },
+  { id: 2, name: 'オレンジ',    emoji: '🍊', category: 'citrus',   price: 150 },
+  { id: 3, name: 'いちご',      emoji: '🍓', category: 'berry',    price: 350 },
+  { id: 4, name: 'マンゴー',    emoji: '🥭', category: 'tropical', price: 500 },
+  { id: 5, name: 'レモン',      emoji: '🍋', category: 'citrus',   price: 100 },
+  { id: 6, name: 'ブルーベリー', emoji: '🫐', category: 'berry',   price: 280 },
 ]
 
 const CATEGORY_LABELS: Record<Fruit['category'], string> = {
@@ -43,12 +43,15 @@ const CATEGORY_LABELS: Record<Fruit['category'], string> = {
 // -------------------------------------------------
 function FruitItem({ fruit, onDelete }: { fruit: Fruit; onDelete: (id: number) => void }) {
   return (
-    <li style={styles.item}>
-      <span style={styles.emoji}>{fruit.emoji}</span>
-      <span style={styles.name}>{fruit.name}</span>
-      <span style={styles.category}>{CATEGORY_LABELS[fruit.category]}</span>
-      <span style={styles.price}>¥{fruit.price}</span>
-      <button style={styles.deleteBtn} onClick={() => onDelete(fruit.id)}>削除</button>
+    <li className="flex items-center gap-3 px-4 py-2.5 bg-white border border-slate-200 rounded-xl">
+      <span className="text-2xl">{fruit.emoji}</span>
+      <span className="font-bold flex-1">{fruit.name}</span>
+      <span className="text-xs text-slate-500">{CATEGORY_LABELS[fruit.category]}</span>
+      <span className="font-bold text-sky-700 min-w-[60px] text-right">¥{fruit.price}</span>
+      <button
+        className="px-2.5 py-1 rounded-md border border-rose-300 bg-rose-50 cursor-pointer text-sm hover:bg-rose-100"
+        onClick={() => onDelete(fruit.id)}
+      >削除</button>
     </li>
   )
 }
@@ -80,19 +83,23 @@ function ListRender() {
   const handleReset = () => setFruits(INITIAL_FRUITS)
 
   return (
-    <div style={styles.container}>
-      <h2 style={styles.title}>📋 リストのレンダリング</h2>
+    <div className="p-6 max-w-2xl">
+      <h2 className="text-2xl font-bold mb-4">📋 リストのレンダリング</h2>
 
-      <p style={styles.note}>
+      <p className="bg-sky-50 border border-sky-200 rounded-lg px-4 py-3 mb-4 leading-relaxed">
         配列の <code>.map()</code> で複数の要素を一気に描画できます。<br />
         各要素には必ず <strong>一意の <code>key</code></strong> を指定することが重要です。
       </p>
 
       {/* コントロールパネル */}
-      <div style={styles.controls}>
+      <div className="flex gap-4 flex-wrap items-center p-3 bg-slate-50 rounded-xl mb-4">
         <div>
           <label>カテゴリー：</label>
-          <select value={filter} onChange={e => setFilter(e.target.value as typeof filter)} style={styles.select}>
+          <select
+            value={filter}
+            onChange={e => setFilter(e.target.value as typeof filter)}
+            className="ml-2 px-2 py-1 rounded-md border border-slate-300"
+          >
             <option value="all">すべて</option>
             <option value="tropical">🌴 トロピカル</option>
             <option value="citrus">🍋 柑橘系</option>
@@ -101,24 +108,29 @@ function ListRender() {
         </div>
         <div>
           <label>ソート：</label>
-          <select value={sortBy} onChange={e => setSortBy(e.target.value as typeof sortBy)} style={styles.select}>
+          <select
+            value={sortBy}
+            onChange={e => setSortBy(e.target.value as typeof sortBy)}
+            className="ml-2 px-2 py-1 rounded-md border border-slate-300"
+          >
             <option value="name">名前順</option>
             <option value="price">価格順</option>
           </select>
         </div>
-        <button style={styles.resetBtn} onClick={handleReset}>リセット</button>
+        <button
+          className="px-4 py-1.5 rounded-lg border border-rose-300 bg-rose-50 cursor-pointer hover:bg-rose-100"
+          onClick={handleReset}
+        >リセット</button>
       </div>
 
       {/* フルーツのリスト */}
-      <p style={{ color: '#64748b', fontSize: '0.9rem' }}>
-        {sorted.length} 件表示中
-      </p>
+      <p className="text-slate-500 text-sm mb-2">{sorted.length} 件表示中</p>
 
       {/* リストが空のときの表示 */}
       {sorted.length === 0 ? (
-        <p style={styles.empty}>フルーツがありません</p>
+        <p className="text-center text-slate-400 py-8 bg-slate-50 rounded-xl">フルーツがありません</p>
       ) : (
-        <ul style={styles.list}>
+        <ul className="list-none p-0 m-0 flex flex-col gap-2">
           {/* key は各要素を一意に識別するために必須 */}
           {sorted.map(fruit => (
             <FruitItem
@@ -130,9 +142,9 @@ function ListRender() {
         </ul>
       )}
 
-      <div style={styles.tip}>
-        <p>📌 ポイント</p>
-        <ul>
+      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mt-4">
+        <p className="font-semibold mb-2">📌 ポイント</p>
+        <ul className="leading-loose pl-5 mb-0">
           <li><code>key</code> は React がリストの変化を効率的に検出するために使います</li>
           <li><code>key</code> には <strong>安定した一意の値</strong>（ID など）を使います — 配列のインデックスは避けましょう</li>
           <li>state の配列を更新するときは <strong>新しい配列</strong> を作ります（元の配列を直接変更してはいけない）</li>
@@ -141,107 +153,6 @@ function ListRender() {
       </div>
     </div>
   )
-}
-
-// -------------------------------------------------
-// スタイル
-// -------------------------------------------------
-const styles: Record<string, React.CSSProperties> = {
-  container: {
-    padding: '24px',
-    maxWidth: '680px',
-  },
-  title: {
-    fontSize: '1.5rem',
-    marginBottom: '16px',
-  },
-  note: {
-    background: '#f0f9ff',
-    border: '1px solid #bae6fd',
-    borderRadius: '8px',
-    padding: '12px 16px',
-    marginBottom: '16px',
-    lineHeight: '1.7',
-  },
-  controls: {
-    display: 'flex',
-    gap: '16px',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    padding: '12px',
-    background: '#f8fafc',
-    borderRadius: '10px',
-    marginBottom: '16px',
-  },
-  select: {
-    marginLeft: '8px',
-    padding: '4px 8px',
-    borderRadius: '6px',
-    border: '1px solid #cbd5e1',
-  },
-  resetBtn: {
-    padding: '6px 16px',
-    borderRadius: '8px',
-    border: '1px solid #fca5a5',
-    background: '#fff1f2',
-    cursor: 'pointer',
-  },
-  list: {
-    listStyle: 'none',
-    padding: 0,
-    margin: 0,
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '8px',
-  },
-  item: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px',
-    padding: '10px 16px',
-    background: '#fff',
-    border: '1px solid #e2e8f0',
-    borderRadius: '10px',
-  },
-  emoji: {
-    fontSize: '1.5rem',
-  },
-  name: {
-    fontWeight: 'bold',
-    flex: 1,
-  },
-  category: {
-    fontSize: '0.8rem',
-    color: '#64748b',
-  },
-  price: {
-    fontWeight: 'bold',
-    color: '#0369a1',
-    minWidth: '60px',
-    textAlign: 'right',
-  },
-  deleteBtn: {
-    padding: '4px 10px',
-    borderRadius: '6px',
-    border: '1px solid #fca5a5',
-    background: '#fff1f2',
-    cursor: 'pointer',
-    fontSize: '0.85rem',
-  },
-  empty: {
-    textAlign: 'center',
-    color: '#94a3b8',
-    padding: '32px',
-    background: '#f8fafc',
-    borderRadius: '10px',
-  },
-  tip: {
-    background: '#fefce8',
-    border: '1px solid #fde68a',
-    borderRadius: '8px',
-    padding: '16px',
-    marginTop: '16px',
-  },
 }
 
 export default ListRender

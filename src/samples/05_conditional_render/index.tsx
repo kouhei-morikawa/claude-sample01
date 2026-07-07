@@ -20,12 +20,12 @@ type Status = 'loading' | 'success' | 'error'
 function StatusMessage({ status }: { status: Status }) {
   // 変数に JSX を代入して、後から返す書き方
   if (status === 'loading') {
-    return <p style={{ color: '#6366f1' }}>⏳ 読み込み中...</p>
+    return <p className="text-indigo-500">⏳ 読み込み中...</p>
   }
   if (status === 'error') {
-    return <p style={{ color: '#ef4444' }}>❌ エラーが発生しました</p>
+    return <p className="text-red-500">❌ エラーが発生しました</p>
   }
-  return <p style={{ color: '#16a34a' }}>✅ データの取得に成功しました！</p>
+  return <p className="text-green-600">✅ データの取得に成功しました！</p>
 }
 
 // -------------------------------------------------
@@ -42,56 +42,62 @@ function ConditionalRender() {
   let scoreColor: string
   if (score >= 90) {
     scoreLabel = '🏆 優秀'
-    scoreColor = '#16a34a'
+    scoreColor = 'text-green-600'
   } else if (score >= 70) {
     scoreLabel = '👍 合格'
-    scoreColor = '#2563eb'
+    scoreColor = 'text-blue-600'
   } else {
     scoreLabel = '📚 要再試験'
-    scoreColor = '#ef4444'
+    scoreColor = 'text-red-500'
   }
 
   return (
-    <div style={styles.container}>
-      <h2 style={styles.title}>🔀 条件分岐レンダリング</h2>
+    <div className="p-6 max-w-2xl">
+      <h2 className="text-2xl font-bold mb-4">🔀 条件分岐レンダリング</h2>
 
-      <p style={styles.note}>
+      <p className="bg-sky-50 border border-sky-200 rounded-lg px-4 py-3 mb-5 leading-relaxed">
         React では JavaScript の条件式をそのまま JSX 内で使えます。
       </p>
 
       {/* ① 三項演算子：どちらか一方を表示 */}
-      <section style={styles.section}>
-        <h3>① 三項演算子（? :）</h3>
-        <button style={styles.btn} onClick={() => setIsLoggedIn(!isLoggedIn)}>
+      <section className="mb-7 p-4 bg-slate-50 rounded-xl">
+        <h3 className="font-semibold mb-3">① 三項演算子（? :）</h3>
+        <button
+          className="px-5 py-2 rounded-lg border border-slate-300 bg-white cursor-pointer hover:bg-slate-100 mr-2 mb-2"
+          onClick={() => setIsLoggedIn(!isLoggedIn)}
+        >
           {isLoggedIn ? 'ログアウト' : 'ログイン'}
         </button>
         <p>
           状態：{isLoggedIn
-            ? <span style={{ color: '#16a34a' }}>✅ ログイン中</span>
-            : <span style={{ color: '#94a3b8' }}>❌ 未ログイン</span>
+            ? <span className="text-green-600">✅ ログイン中</span>
+            : <span className="text-slate-400">❌ 未ログイン</span>
           }
         </p>
         {/* ログイン時だけ表示するメニュー（三項演算子） */}
         {isLoggedIn ? (
-          <div style={styles.menu}>
+          <div className="bg-white border border-slate-200 rounded-lg px-4 py-3 mt-2">
             <p>👤 プロフィール</p>
             <p>⚙️ 設定</p>
             <p>📨 メッセージ</p>
           </div>
         ) : (
-          <p style={{ color: '#94a3b8', fontSize: '0.9rem' }}>ログインするとメニューが表示されます</p>
+          <p className="text-slate-400 text-sm">ログインするとメニューが表示されます</p>
         )}
       </section>
 
       {/* ② && 演算子：条件を満たす場合だけ表示 */}
-      <section style={styles.section}>
-        <h3>② && 演算子</h3>
-        <button style={styles.btn} onClick={() => setShowDetails(!showDetails)}>
+      <section className="mb-7 p-4 bg-slate-50 rounded-xl">
+        <h3 className="font-semibold mb-3">② && 演算子</h3>
+        <button
+          className="px-5 py-2 rounded-lg border border-slate-300 bg-white cursor-pointer hover:bg-slate-100 mr-2 mb-2"
+          onClick={() => setShowDetails(!showDetails)}
+        >
           {showDetails ? '詳細を隠す' : '詳細を見る'}
         </button>
         {/* showDetails が true のときだけ表示される */}
         {showDetails && (
-          <div style={styles.detailBox}>
+          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 mt-2">
             <p>これは詳細情報です。<code>&&</code> の左が <code>true</code> の場合だけ表示されます。</p>
             <p>⚠️ 注意：<code>0 && &lt;JSX&gt;</code> は <code>0</code> が表示されてしまうので、<code>!!count && ...</code> のように真偽値に変換しましょう。</p>
           </div>
@@ -99,19 +105,28 @@ function ConditionalRender() {
       </section>
 
       {/* ③ コンポーネントを出し分ける */}
-      <section style={styles.section}>
-        <h3>③ コンポーネントの出し分け</h3>
-        <div style={styles.btnGroup}>
-          <button style={styles.btn} onClick={() => setStatus('loading')}>Loading</button>
-          <button style={styles.btn} onClick={() => setStatus('success')}>Success</button>
-          <button style={styles.btn} onClick={() => setStatus('error')}>Error</button>
+      <section className="mb-7 p-4 bg-slate-50 rounded-xl">
+        <h3 className="font-semibold mb-3">③ コンポーネントの出し分け</h3>
+        <div className="flex gap-2 mb-3 flex-wrap">
+          <button
+            className="px-5 py-2 rounded-lg border border-slate-300 bg-white cursor-pointer hover:bg-slate-100"
+            onClick={() => setStatus('loading')}
+          >Loading</button>
+          <button
+            className="px-5 py-2 rounded-lg border border-slate-300 bg-white cursor-pointer hover:bg-slate-100"
+            onClick={() => setStatus('success')}
+          >Success</button>
+          <button
+            className="px-5 py-2 rounded-lg border border-slate-300 bg-white cursor-pointer hover:bg-slate-100"
+            onClick={() => setStatus('error')}
+          >Error</button>
         </div>
         <StatusMessage status={status} />
       </section>
 
       {/* ④ 変数に JSX を代入 */}
-      <section style={styles.section}>
-        <h3>④ 変数を使った条件分岐</h3>
+      <section className="mb-7 p-4 bg-slate-50 rounded-xl">
+        <h3 className="font-semibold mb-3">④ 変数を使った条件分岐</h3>
         <label>
           スコア：
           <input
@@ -120,17 +135,17 @@ function ConditionalRender() {
             max={100}
             value={score}
             onChange={e => setScore(Number(e.target.value))}
-            style={{ marginLeft: '8px', verticalAlign: 'middle' }}
+            className="ml-2 align-middle"
           />
-          <strong style={{ marginLeft: '12px', color: scoreColor }}>
+          <strong className={`ml-3 ${scoreColor}`}>
             {score}点 — {scoreLabel}
           </strong>
         </label>
       </section>
 
-      <div style={styles.tip}>
-        <p>📌 ポイント</p>
-        <ul>
+      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mt-2">
+        <p className="font-semibold mb-2">📌 ポイント</p>
+        <ul className="leading-loose pl-5 mb-0">
           <li><strong>三項演算子</strong>（<code>条件 ? A : B</code>）：どちらか一方を表示するとき</li>
           <li><strong>&& 演算子</strong>（<code>条件 && JSX</code>）：条件を満たすときだけ表示するとき</li>
           <li><strong>変数代入</strong>：複雑な条件は JSX の外で処理してから返すとすっきりします</li>
@@ -139,70 +154,6 @@ function ConditionalRender() {
       </div>
     </div>
   )
-}
-
-// -------------------------------------------------
-// スタイル
-// -------------------------------------------------
-const styles: Record<string, React.CSSProperties> = {
-  container: {
-    padding: '24px',
-    maxWidth: '640px',
-  },
-  title: {
-    fontSize: '1.5rem',
-    marginBottom: '16px',
-  },
-  note: {
-    background: '#f0f9ff',
-    border: '1px solid #bae6fd',
-    borderRadius: '8px',
-    padding: '12px 16px',
-    marginBottom: '20px',
-    lineHeight: '1.7',
-  },
-  section: {
-    marginBottom: '28px',
-    padding: '16px',
-    background: '#f8fafc',
-    borderRadius: '10px',
-  },
-  btn: {
-    padding: '8px 20px',
-    borderRadius: '8px',
-    border: '1px solid #cbd5e1',
-    background: '#fff',
-    cursor: 'pointer',
-    marginRight: '8px',
-    marginBottom: '8px',
-  },
-  btnGroup: {
-    display: 'flex',
-    gap: '8px',
-    marginBottom: '12px',
-    flexWrap: 'wrap',
-  },
-  menu: {
-    background: '#fff',
-    border: '1px solid #e2e8f0',
-    borderRadius: '8px',
-    padding: '12px 16px',
-    marginTop: '8px',
-  },
-  detailBox: {
-    background: '#fffbeb',
-    border: '1px solid #fde68a',
-    borderRadius: '8px',
-    padding: '12px',
-    marginTop: '8px',
-  },
-  tip: {
-    background: '#fefce8',
-    border: '1px solid #fde68a',
-    borderRadius: '8px',
-    padding: '16px',
-    marginTop: '8px',
-  },
 }
 
 export default ConditionalRender
