@@ -14,6 +14,7 @@ import EventHandling     from './04_event_handling'
 import ConditionalRender from './05_conditional_render'
 import ListRender        from './06_list_render'
 import UseEffectDemo     from './07_use_effect'
+import FormsDemo         from './08_forms'
 
 // -------------------------------------------------
 // サンプル一覧の定義
@@ -33,6 +34,7 @@ const SAMPLES: Sample[] = [
   { id: '05', label: '条件分岐レンダリング', level: 2, component: ConditionalRender },
   { id: '06', label: 'リストのレンダリング', level: 2, component: ListRender },
   { id: '07', label: 'useEffect',          level: 2, component: UseEffectDemo },
+  { id: '08', label: 'フォーム制御',         level: 3, component: FormsDemo },
 ]
 
 // レベルに対応したバッジ背景色（動的なので Tailwind クラスではなくインラインで指定）
