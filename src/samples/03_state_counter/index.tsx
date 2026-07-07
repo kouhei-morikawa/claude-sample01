@@ -17,13 +17,22 @@ function Counter() {
   const [count, setCount] = useState(0)
 
   return (
-    <div style={styles.counterBox}>
-      <p style={styles.countDisplay}>{count}</p>
-      <div style={styles.buttonRow}>
+    <div className="flex flex-col items-center gap-3 p-5 bg-slate-50 rounded-xl w-fit">
+      <p className="text-5xl font-bold m-0 min-w-[80px] text-center">{count}</p>
+      <div className="flex gap-2">
         {/* ボタンを押すと setCount が呼ばれ、画面が更新される */}
-        <button style={styles.btn} onClick={() => setCount(count - 1)}>－</button>
-        <button style={styles.btnReset} onClick={() => setCount(0)}>リセット</button>
-        <button style={styles.btn} onClick={() => setCount(count + 1)}>＋</button>
+        <button
+          className="px-5 py-2 text-lg rounded-lg border border-slate-300 bg-white cursor-pointer hover:bg-slate-50"
+          onClick={() => setCount(count - 1)}
+        >－</button>
+        <button
+          className="px-4 py-2 text-sm rounded-lg border border-rose-300 bg-rose-50 cursor-pointer hover:bg-rose-100"
+          onClick={() => setCount(0)}
+        >リセット</button>
+        <button
+          className="px-5 py-2 text-lg rounded-lg border border-slate-300 bg-white cursor-pointer hover:bg-slate-50"
+          onClick={() => setCount(count + 1)}
+        >＋</button>
       </div>
     </div>
   )
@@ -41,47 +50,56 @@ function StateCounter() {
   const decrement = () => setCount(count - step)
 
   return (
-    <div style={styles.container}>
-      <h2 style={styles.title}>🔢 useState でカウンター</h2>
+    <div className="p-6 max-w-xl">
+      <h2 className="text-2xl font-bold mb-4">🔢 useState でカウンター</h2>
 
-      <p style={styles.note}>
+      <p className="bg-sky-50 border border-sky-200 rounded-lg px-4 py-3 mb-5 leading-relaxed">
         <code>useState</code> は React に値を「覚えさせる」ための仕組みです。<br />
         通常の変数（<code>let count = 0</code>）は変更しても画面が更新されませんが、<br />
         <code>useState</code> を使うと値が変わるたびに <strong>自動で再レンダリング</strong> されます。
       </p>
 
       {/* シンプルなカウンター */}
-      <h3>シンプルなカウンター</h3>
+      <h3 className="font-semibold mb-2">シンプルなカウンター</h3>
       <Counter />
 
-      <hr style={styles.divider} />
+      <hr className="my-6 border-slate-200" />
 
       {/* ステップ付きカウンター */}
-      <h3>ステップ付きカウンター</h3>
-      <div style={styles.stepBox}>
+      <h3 className="font-semibold mb-2">ステップ付きカウンター</h3>
+      <div className="flex flex-col items-center gap-3 p-5 bg-slate-50 rounded-xl">
         <label>
           増減幅：
           <select
             value={step}
             onChange={e => setStep(Number(e.target.value))}
-            style={styles.select}
+            className="ml-2 px-2 py-1 rounded-md border border-slate-300"
           >
             <option value={1}>1</option>
             <option value={5}>5</option>
             <option value={10}>10</option>
           </select>
         </label>
-        <p style={styles.countDisplay}>{count}</p>
-        <div style={styles.buttonRow}>
-          <button style={styles.btn} onClick={decrement}>－{step}</button>
-          <button style={styles.btnReset} onClick={() => setCount(0)}>リセット</button>
-          <button style={styles.btn} onClick={increment}>＋{step}</button>
+        <p className="text-5xl font-bold m-0 min-w-[80px] text-center">{count}</p>
+        <div className="flex gap-2">
+          <button
+            className="px-5 py-2 text-lg rounded-lg border border-slate-300 bg-white cursor-pointer hover:bg-slate-50"
+            onClick={decrement}
+          >－{step}</button>
+          <button
+            className="px-4 py-2 text-sm rounded-lg border border-rose-300 bg-rose-50 cursor-pointer hover:bg-rose-100"
+            onClick={() => setCount(0)}
+          >リセット</button>
+          <button
+            className="px-5 py-2 text-lg rounded-lg border border-slate-300 bg-white cursor-pointer hover:bg-slate-50"
+            onClick={increment}
+          >＋{step}</button>
         </div>
       </div>
 
-      <div style={styles.tip}>
-        <p>📌 ポイント</p>
-        <ul>
+      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mt-6">
+        <p className="font-semibold mb-2">📌 ポイント</p>
+        <ul className="leading-loose pl-5 mb-0">
           <li><code>useState</code> は <strong>フック</strong>（Hook）と呼ばれる特別な関数です</li>
           <li>フックはコンポーネントの <strong>トップレベル</strong> でのみ呼び出せます（if 文の中などはNG）</li>
           <li>state を直接書き換えてはいけません — 必ず <strong>セッター関数</strong>（<code>setCount</code>）を使います</li>
@@ -90,91 +108,6 @@ function StateCounter() {
       </div>
     </div>
   )
-}
-
-// -------------------------------------------------
-// スタイル
-// -------------------------------------------------
-const styles: Record<string, React.CSSProperties> = {
-  container: {
-    padding: '24px',
-    maxWidth: '600px',
-  },
-  title: {
-    fontSize: '1.5rem',
-    marginBottom: '16px',
-  },
-  note: {
-    background: '#f0f9ff',
-    border: '1px solid #bae6fd',
-    borderRadius: '8px',
-    padding: '12px 16px',
-    marginBottom: '20px',
-    lineHeight: '1.7',
-  },
-  counterBox: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: '12px',
-    padding: '20px',
-    background: '#f8fafc',
-    borderRadius: '12px',
-    width: 'fit-content',
-  },
-  stepBox: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: '12px',
-    padding: '20px',
-    background: '#f8fafc',
-    borderRadius: '12px',
-  },
-  countDisplay: {
-    fontSize: '3rem',
-    fontWeight: 'bold',
-    margin: 0,
-    minWidth: '80px',
-    textAlign: 'center',
-  },
-  buttonRow: {
-    display: 'flex',
-    gap: '8px',
-  },
-  btn: {
-    padding: '8px 20px',
-    fontSize: '1.1rem',
-    borderRadius: '8px',
-    border: '1px solid #cbd5e1',
-    background: '#fff',
-    cursor: 'pointer',
-  },
-  btnReset: {
-    padding: '8px 16px',
-    fontSize: '0.9rem',
-    borderRadius: '8px',
-    border: '1px solid #fca5a5',
-    background: '#fff1f2',
-    cursor: 'pointer',
-  },
-  select: {
-    marginLeft: '8px',
-    padding: '4px 8px',
-    borderRadius: '6px',
-    border: '1px solid #cbd5e1',
-  },
-  divider: {
-    margin: '24px 0',
-    borderColor: '#e2e8f0',
-  },
-  tip: {
-    background: '#fefce8',
-    border: '1px solid #fde68a',
-    borderRadius: '8px',
-    padding: '16px',
-    marginTop: '24px',
-  },
 }
 
 export default StateCounter
