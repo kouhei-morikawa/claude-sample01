@@ -1,0 +1,24 @@
+{
+  "appTitle": "多言語対応サンプル",
+  "appDescription": "react-i18next を使った国際化（i18n）の基本パターンを学びます。",
+  "languageLabel": "言語",
+  "currentLang": "現在の言語：{{lang}}",
+  "hello": "こんにちは、{{name}}さん！",
+  "itemCount": "{{count}}件のアイテム",
+  "itemCount_zero": "アイテムなし",
+  "itemCount_one": "{{count}}件のアイテム",
+  "itemCount_other": "{{count}}件のアイテム",
+  "buttons": {
+    "add": "追加",
+    "reset": "リセット",
+    "japanese": "日本語",
+    "english": "English"
+  },
+  "sections": {
+    "basic": "基本翻訳",
+    "interpolation": "変数補間（Interpolation）",
+    "pluralization": "複数形（Pluralization）",
+    "namespace": "ネームスペース分割",
+    "transComponent": "Trans コンポーネント"
+  }
+}

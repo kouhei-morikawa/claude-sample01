@@ -24,7 +24,8 @@ src/
     ├── 12_reducer/              # Lv.4 useReducer で複雑な状態管理
     ├── 13_memo_callback/        # Lv.5 React.memo / useCallback / useMemo
     ├── 14_router/               # Lv.5 React Router でページ遷移
-    └── 15_todo_app/             # Lv.5 総合演習：Todo アプリ
+    ├── 15_todo_app/             # Lv.5 総合演習：Todo アプリ
+    └── 16_i18n/                 # Lv.5 多言語対応（react-i18next）
 ```
 
 ---
@@ -98,11 +99,13 @@ src/
 | 13 | memo_callback | 最適化 | `React.memo` / `useCallback` / `useMemo` の使い所 |
 | 14 | router | React Router | SPA のルーティング、動的パス、ネストルート |
 | 15 | todo_app | 総合演習 | これまでの学習を組み合わせた実践アプリ |
+| 16 | i18n | 多言語対応 | `react-i18next` による国際化、変数補間、複数形、ネームスペース |
 
 **習得目標：**
 - 不必要な再レンダリングを防ぐ最適化ができる
 - SPA でページ遷移を実装できる
 - 複数の概念を組み合わせてアプリを設計・実装できる
+- `react-i18next` でアプリを多言語対応できる
 
 ---
 
