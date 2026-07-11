@@ -1,0 +1,141 @@
+name: Daily Capacity Check
+
+# 開発者ごとの「本日の予定タスク合計時間」がCAPACITY_HOURSを超えていないかを
+# GitHub Projectsのデータから自動判定し、超過があればIssueで通知する。
+# セットアップ手順は .github/PROJECT_MANAGEMENT.md の「日次の稼働キャパシティ確認」を参照。
+
+on:
+  schedule:
+    - cron: "0 0 * * 1-5" # 平日 09:00 JST
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check-capacity:
+    if: ${{ vars.PROJECT_NUMBER != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Query project items and report overloaded assignees
+        uses: actions/github-script@v7
+        env:
+          PROJECT_NUMBER: ${{ vars.PROJECT_NUMBER }}
+          PROJECT_OWNER: ${{ vars.PROJECT_OWNER || github.repository_owner }}
+          PROJECT_OWNER_TYPE: ${{ vars.PROJECT_OWNER_TYPE || 'org' }}
+          CAPACITY_HOURS: ${{ vars.CAPACITY_HOURS || '6' }}
+          ESTIMATE_FIELD_NAME: ${{ vars.ESTIMATE_FIELD_NAME || 'Estimate (h)' }}
+          DATE_FIELD_NAME: ${{ vars.DATE_FIELD_NAME || '予定日' }}
+        with:
+          github-token: ${{ secrets.PROJECTS_TOKEN }}
+          script: |
+            const owner = process.env.PROJECT_OWNER;
+            const projectNumber = parseInt(process.env.PROJECT_NUMBER, 10);
+            const ownerType = process.env.PROJECT_OWNER_TYPE === 'user' ? 'user' : 'organization';
+            const capacityHours = parseFloat(process.env.CAPACITY_HOURS);
+            const estimateFieldName = process.env.ESTIMATE_FIELD_NAME;
+            const dateFieldName = process.env.DATE_FIELD_NAME;
+
+            if (!process.env.PROJECTS_TOKEN && !process.env.GITHUB_TOKEN) {
+              core.setFailed('PROJECTS_TOKEN secret is not set. See .github/PROJECT_MANAGEMENT.md for setup.');
+              return;
+            }
+
+            const query = `
+              query($login: String!, $number: Int!, $after: String) {
+                ${ownerType}(login: $login) {
+                  projectV2(number: $number) {
+                    items(first: 100, after: $after) {
+                      pageInfo { hasNextPage endCursor }
+                      nodes {
+                        content {
+                          ... on Issue {
+                            number
+                            title
+                            url
+                            assignees(first: 10) { nodes { login } }
+                          }
+                        }
+                        fieldValues(first: 20) {
+                          nodes {
+                            ... on ProjectV2ItemFieldNumberValue {
+                              number
+                              field { ... on ProjectV2FieldCommon { name } }
+                            }
+                            ... on ProjectV2ItemFieldDateValue {
+                              date
+                              field { ... on ProjectV2FieldCommon { name } }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            `;
+
+            const items = [];
+            let after = null;
+            for (;;) {
+              const result = await github.graphql(query, { login: owner, number: projectNumber, after });
+              const root = ownerType === 'user' ? result.user : result.organization;
+              if (!root || !root.projectV2) {
+                core.setFailed(`Project #${projectNumber} not found for ${ownerType} "${owner}".`);
+                return;
+              }
+              items.push(...root.projectV2.items.nodes);
+              if (!root.projectV2.items.pageInfo.hasNextPage) break;
+              after = root.projectV2.items.pageInfo.endCursor;
+            }
+
+            const today = new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Tokyo' });
+            const totals = {};
+
+            for (const item of items) {
+              if (!item.content || !item.content.assignees) continue;
+
+              let estimate = null;
+              let date = null;
+              for (const fv of item.fieldValues.nodes) {
+                if (!fv.field) continue;
+                if (fv.field.name === estimateFieldName && fv.number != null) estimate = fv.number;
+                if (fv.field.name === dateFieldName && fv.date) date = fv.date;
+              }
+              if (date !== today || estimate == null) continue;
+
+              for (const assignee of item.content.assignees.nodes) {
+                const login = assignee.login;
+                if (!totals[login]) totals[login] = { hours: 0, tasks: [] };
+                totals[login].hours += estimate;
+                totals[login].tasks.push(`- #${item.content.number} ${item.content.title} (${estimate}h) ${item.content.url}`);
+              }
+            }
+
+            const overloaded = Object.entries(totals).filter(([, v]) => v.hours > capacityHours);
+
+            if (overloaded.length === 0) {
+              console.log(`No overloaded assignees for ${today}.`);
+              return;
+            }
+
+            const sections = overloaded.map(([login, v]) =>
+              `### @${login} — 予定合計 ${v.hours}h（上限 ${capacityHours}h）\n${v.tasks.join('\n')}`
+            );
+
+            const body = [
+              `本日（${today}）、以下のメンバーが1日の稼働上限（${capacityHours}h）を超えるタスクを割り当てられています。`,
+              '',
+              ...sections,
+              '',
+              '朝会で割り振りの見直しをご検討ください。',
+            ].join('\n');
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `[Capacity Alert] ${today} 稼働上限超過`,
+              body,
+              labels: ['capacity-alert'],
+            });
