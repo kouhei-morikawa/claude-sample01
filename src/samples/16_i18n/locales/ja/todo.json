@@ -1,0 +1,13 @@
+{
+  "title": "Todo リスト",
+  "addPlaceholder": "新しいタスクを入力...",
+  "emptyMessage": "タスクがありません。追加してみましょう！",
+  "todoCount": "残り {{count}} 件",
+  "todoCount_zero": "すべて完了！",
+  "todoCount_one": "残り {{count}} 件",
+  "todoCount_other": "残り {{count}} 件",
+  "status": {
+    "pending": "未完了",
+    "done": "完了"
+  }
+}

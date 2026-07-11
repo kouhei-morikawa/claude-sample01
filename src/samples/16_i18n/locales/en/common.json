@@ -1,0 +1,25 @@
+{
+  "appTitle": "Internationalization Sample",
+  "appDescription": "Learn basic i18n patterns using react-i18next.",
+  "appDescriptionWithStrong": "Learn basic <0>i18n patterns</0> using react-i18next.",
+  "languageLabel": "Language",
+  "currentLang": "Current language: {{lang}}",
+  "hello": "Hello, {{name}}!",
+  "itemCount": "{{count}} items",
+  "itemCount_zero": "No items",
+  "itemCount_one": "{{count}} item",
+  "itemCount_other": "{{count}} items",
+  "buttons": {
+    "add": "Add",
+    "reset": "Reset",
+    "japanese": "日本語",
+    "english": "English"
+  },
+  "sections": {
+    "basic": "Basic Translation",
+    "interpolation": "Variable Interpolation",
+    "pluralization": "Pluralization",
+    "namespace": "Namespace Separation",
+    "transComponent": "Trans Component"
+  }
+}

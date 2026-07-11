@@ -1,0 +1,13 @@
+{
+  "title": "Todo List",
+  "addPlaceholder": "Enter a new task...",
+  "emptyMessage": "No tasks yet. Add one!",
+  "todoCount": "{{count}} remaining",
+  "todoCount_zero": "All done!",
+  "todoCount_one": "{{count}} remaining",
+  "todoCount_other": "{{count}} remaining",
+  "status": {
+    "pending": "Pending",
+    "done": "Done"
+  }
+}
