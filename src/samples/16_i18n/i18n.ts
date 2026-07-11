@@ -42,6 +42,12 @@ i18n
     // デフォルトのネームスペース
     defaultNS: 'common',
 
+    // サンプルでは Suspense 境界を用意していないため、サスペンドしない設定にする
+    react: { useSuspense: false },
+
+    // 初期化を同期実行して初回描画で翻訳が解決されるようにする
+    initImmediate: false,
+
     interpolation: {
       // React は XSS 対策を自前で行うため、i18next 側のエスケープは不要
       escapeValue: false,
