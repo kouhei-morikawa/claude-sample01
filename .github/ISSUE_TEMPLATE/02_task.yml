@@ -1,0 +1,45 @@
+name: "✅ タスク"
+description: ユーザーストーリーから分解した実装タスク
+title: "[Task] "
+labels: ["type: task"]
+body:
+  - type: input
+    id: parent
+    attributes:
+      label: 親ユーザーストーリー
+      description: 親IssueのURLまたは番号（例: #12）。可能ならSub-issue機能でも紐付けてください
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: 作業内容
+    validations:
+      required: true
+  - type: textarea
+    id: done
+    attributes:
+      label: 完了条件
+      value: |
+        - [ ]
+    validations:
+      required: false
+  - type: dropdown
+    id: size
+    attributes:
+      label: 見積もり
+      options:
+        - XS
+        - S
+        - M
+        - L
+        - XL
+    validations:
+      required: false
+  - type: checkboxes
+    id: spec-confirmed
+    attributes:
+      label: 着手前チェック
+      options:
+        - label: 親ストーリーの仕様確定状況が「確定」であることを確認した
+          required: false
