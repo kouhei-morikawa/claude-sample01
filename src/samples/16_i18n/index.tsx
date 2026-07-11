@@ -283,7 +283,7 @@ function NamespaceSection() {
         <p className="text-slate-500">// 複数ネームスペースの取得方法</p>
         <p><span className="text-blue-400">const</span> {'{ t: tc } = '}<span className="text-yellow-400">useTranslation</span>(<span className="text-green-400">'common'</span>)</p>
         <p><span className="text-blue-400">const</span> {'{ t: tt } = '}<span className="text-yellow-400">useTranslation</span>(<span className="text-green-400">'todo'</span>)</p>
-        <p className="mt-2 text-slate-500">// または第3引数なしで配列指定も可能</p>
+        <p className="mt-2 text-slate-500">// または第1引数を配列にして複数ネームスペースを同時に取得することも可能</p>
         <p><span className="text-blue-400">const</span> {'{ t } = '}<span className="text-yellow-400">useTranslation</span>([<span className="text-green-400">'common'</span>, <span className="text-green-400">'todo'</span>])</p>
         <p><span className="text-yellow-400">t</span>(<span className="text-green-400">'todo:title'</span>)  <span className="text-slate-500">// ns:key 形式</span></p>
       </div>
