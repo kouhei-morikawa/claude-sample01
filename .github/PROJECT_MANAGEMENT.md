@@ -105,7 +105,8 @@ Projectsの **Table view** で以下を設定する。
 
 利用するには以下の設定が必要（GitHub UI上での手動作業）。
 
-1. `read:project` スコープを持つPAT（Classic）を発行し、リポジトリのSecretsに `PROJECTS_TOKEN` として登録
+1. `read:project` と `repo`（Publicリポジトリのみなら `public_repo` で可）スコープを持つPAT（Classic）を発行し、リポジトリのSecretsに `PROJECTS_TOKEN` として登録
+   - `read:project` はProjectsのデータ取得に、`repo`/`public_repo` はアラートIssueの作成に必要
 2. リポジトリのVariablesに以下を設定
    - `PROJECT_NUMBER`（対象ProjectsのURLに表示される番号）
    - `PROJECT_OWNER`（Projectの所有者。未設定時はリポジトリオーナーを使用）
