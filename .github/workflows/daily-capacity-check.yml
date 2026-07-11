@@ -26,7 +26,6 @@ jobs:
           PROJECT_OWNER_TYPE: ${{ vars.PROJECT_OWNER_TYPE || 'org' }}
           CAPACITY_HOURS: ${{ vars.CAPACITY_HOURS || '6' }}
           ESTIMATE_FIELD_NAME: ${{ vars.ESTIMATE_FIELD_NAME || 'Estimate (h)' }}
-          DATE_FIELD_NAME: ${{ vars.DATE_FIELD_NAME || '予定日' }}
           STATUS_FIELD_NAME: ${{ vars.STATUS_FIELD_NAME || 'Status' }}
           STATUS_VALUE: ${{ vars.STATUS_VALUE || '本日作業' }}
           PROJECTS_TOKEN: ${{ secrets.PROJECTS_TOKEN }}
@@ -38,7 +37,6 @@ jobs:
             const ownerType = process.env.PROJECT_OWNER_TYPE === 'user' ? 'user' : 'organization';
             const capacityHours = parseFloat(process.env.CAPACITY_HOURS);
             const estimateFieldName = process.env.ESTIMATE_FIELD_NAME;
-            const dateFieldName = process.env.DATE_FIELD_NAME;
             const statusFieldName = process.env.STATUS_FIELD_NAME;
             const statusValue = process.env.STATUS_VALUE;
 
@@ -66,10 +64,6 @@ jobs:
                           nodes {
                             ... on ProjectV2ItemFieldNumberValue {
                               number
-                              field { ... on ProjectV2FieldCommon { name } }
-                            }
-                            ... on ProjectV2ItemFieldDateValue {
-                              date
                               field { ... on ProjectV2FieldCommon { name } }
                             }
                             ... on ProjectV2ItemFieldSingleSelectValue {
@@ -106,15 +100,13 @@ jobs:
               if (!item.content || !item.content.assignees) continue;
 
               let estimate = null;
-              let date = null;
               let status = null;
               for (const fv of item.fieldValues.nodes) {
                 if (!fv.field) continue;
                 if (fv.field.name === estimateFieldName && fv.number != null) estimate = fv.number;
-                if (fv.field.name === dateFieldName && fv.date) date = fv.date;
                 if (fv.field.name === statusFieldName && fv.name) status = fv.name;
               }
-              if (date !== today || estimate == null || status !== statusValue) continue;
+              if (estimate == null || status !== statusValue) continue;
 
               for (const assignee of item.content.assignees.nodes) {
                 const login = assignee.login;
