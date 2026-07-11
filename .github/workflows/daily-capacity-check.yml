@@ -27,6 +27,7 @@ jobs:
           CAPACITY_HOURS: ${{ vars.CAPACITY_HOURS || '6' }}
           ESTIMATE_FIELD_NAME: ${{ vars.ESTIMATE_FIELD_NAME || 'Estimate (h)' }}
           DATE_FIELD_NAME: ${{ vars.DATE_FIELD_NAME || '予定日' }}
+          PROJECTS_TOKEN: ${{ secrets.PROJECTS_TOKEN }}
         with:
           github-token: ${{ secrets.PROJECTS_TOKEN }}
           script: |
@@ -37,8 +38,8 @@ jobs:
             const estimateFieldName = process.env.ESTIMATE_FIELD_NAME;
             const dateFieldName = process.env.DATE_FIELD_NAME;
 
-            if (!process.env.PROJECTS_TOKEN && !process.env.GITHUB_TOKEN) {
-              core.setFailed('PROJECTS_TOKEN secret is not set. See .github/PROJECT_MANAGEMENT.md for setup.');
+            if (!process.env.PROJECTS_TOKEN) {
+              core.setFailed('PROJECTS_TOKEN secret is not set (needs a classic PAT with repo + read:project scopes). See .github/PROJECT_MANAGEMENT.md for setup.');
               return;
             }
 
