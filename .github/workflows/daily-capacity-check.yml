@@ -27,6 +27,8 @@ jobs:
           CAPACITY_HOURS: ${{ vars.CAPACITY_HOURS || '6' }}
           ESTIMATE_FIELD_NAME: ${{ vars.ESTIMATE_FIELD_NAME || 'Estimate (h)' }}
           DATE_FIELD_NAME: ${{ vars.DATE_FIELD_NAME || '予定日' }}
+          STATUS_FIELD_NAME: ${{ vars.STATUS_FIELD_NAME || 'Status' }}
+          STATUS_VALUE: ${{ vars.STATUS_VALUE || '本日作業' }}
           PROJECTS_TOKEN: ${{ secrets.PROJECTS_TOKEN }}
         with:
           github-token: ${{ secrets.PROJECTS_TOKEN }}
@@ -37,6 +39,8 @@ jobs:
             const capacityHours = parseFloat(process.env.CAPACITY_HOURS);
             const estimateFieldName = process.env.ESTIMATE_FIELD_NAME;
             const dateFieldName = process.env.DATE_FIELD_NAME;
+            const statusFieldName = process.env.STATUS_FIELD_NAME;
+            const statusValue = process.env.STATUS_VALUE;
 
             if (!process.env.PROJECTS_TOKEN) {
               core.setFailed('PROJECTS_TOKEN secret is not set (needs a classic PAT with repo + read:project scopes). See .github/PROJECT_MANAGEMENT.md for setup.');
@@ -66,6 +70,10 @@ jobs:
                             }
                             ... on ProjectV2ItemFieldDateValue {
                               date
+                              field { ... on ProjectV2FieldCommon { name } }
+                            }
+                            ... on ProjectV2ItemFieldSingleSelectValue {
+                              name
                               field { ... on ProjectV2FieldCommon { name } }
                             }
                           }
@@ -99,12 +107,14 @@ jobs:
 
               let estimate = null;
               let date = null;
+              let status = null;
               for (const fv of item.fieldValues.nodes) {
                 if (!fv.field) continue;
                 if (fv.field.name === estimateFieldName && fv.number != null) estimate = fv.number;
                 if (fv.field.name === dateFieldName && fv.date) date = fv.date;
+                if (fv.field.name === statusFieldName && fv.name) status = fv.name;
               }
-              if (date !== today || estimate == null) continue;
+              if (date !== today || estimate == null || status !== statusValue) continue;
 
               for (const assignee of item.content.assignees.nodes) {
                 const login = assignee.login;
