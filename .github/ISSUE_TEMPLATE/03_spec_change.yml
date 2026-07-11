@@ -1,0 +1,48 @@
+name: "🔄 仕様変更"
+description: 仕様の追加・変更が発生した際に記録する
+title: "[SpecChange] "
+labels: ["type: spec-change"]
+body:
+  - type: textarea
+    id: before
+    attributes:
+      label: 変更前の仕様
+    validations:
+      required: true
+  - type: textarea
+    id: after
+    attributes:
+      label: 変更後の仕様
+    validations:
+      required: true
+  - type: textarea
+    id: reason
+    attributes:
+      label: 変更理由・出所
+      description: お客様からのどの発言・MTG・資料に基づく変更か
+    validations:
+      required: true
+  - type: textarea
+    id: affected
+    attributes:
+      label: 影響を受けるIssue
+      description: 影響するIssue番号を列挙（例: #12, #15）
+    validations:
+      required: false
+  - type: dropdown
+    id: impact
+    attributes:
+      label: 影響度
+      options:
+        - 軽微（変更のみ）
+        - 手戻りあり
+        - 大幅な手戻り
+    validations:
+      required: true
+  - type: input
+    id: decided-by
+    attributes:
+      label: 決定日・決定者
+      placeholder: "例: 2026-07-15 / 田中様承認"
+    validations:
+      required: false

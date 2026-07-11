@@ -1,0 +1,54 @@
+name: "📖 ユーザーストーリー"
+description: お客様から共有されたユーザーストーリーをもとに起票する
+title: "[Story] "
+labels: ["type: story"]
+body:
+  - type: textarea
+    id: story
+    attributes:
+      label: ユーザーストーリー
+      description: "As a ... / I want ... / So that ... の形式で記載してください"
+      placeholder: |
+        As a [ユーザー種別]
+        I want [実現したいこと]
+        So that [得られる価値]
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: 受け入れ条件
+      description: 完了とみなす条件をチェックリストで記載（起票時点では粗くてよい。仕様確定次第アップデートする）
+      value: |
+        - [ ]
+    validations:
+      required: false
+  - type: dropdown
+    id: spec-status
+    attributes:
+      label: 仕様確定状況
+      description: プロジェクトボードの「仕様確定状況」フィールドと合わせて更新してください
+      options:
+        - 未確定
+        - 一部確定
+        - 確定
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: 優先度
+      options:
+        - P0（最優先）
+        - P1（高）
+        - P2（中）
+        - P3（低）
+    validations:
+      required: false
+  - type: textarea
+    id: related
+    attributes:
+      label: 関連Issue / 分解タスク
+      description: このストーリーから分解したTask Issue（Sub-issue）へのリンクを記載
+    validations:
+      required: false
