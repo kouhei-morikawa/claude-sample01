@@ -99,8 +99,9 @@ function InterpolationSection() {
 
       {/* 名前入力 */}
       <div className="flex gap-2 items-center">
-        <label className="text-sm text-slate-600 flex-shrink-0">名前：</label>
+        <label htmlFor="i18n-demo-name" className="text-sm text-slate-600 flex-shrink-0">名前：</label>
         <input
+          id="i18n-demo-name"
           type="text"
           value={name}
           onChange={e => setName(e.target.value)}
