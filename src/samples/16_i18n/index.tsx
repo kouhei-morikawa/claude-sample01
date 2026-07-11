@@ -311,7 +311,7 @@ function TransSection() {
           <p className="text-xs text-slate-500 mb-1">例: 太字・リンクを含む翻訳</p>
           <p className="text-slate-700">
             <Trans
-              i18nKey="appDescription"
+              i18nKey="appDescriptionWithStrong"
               ns="common"
               components={{
                 // インデックス 0 = <strong> タグ
@@ -343,7 +343,7 @@ function TransSection() {
       <div className="p-3 bg-slate-800 rounded-lg text-xs font-mono text-slate-300 space-y-1">
         <p className="text-slate-500">// Trans コンポーネントの使い方</p>
         <p>{'<'}<span className="text-yellow-400">Trans</span></p>
-        <p>{'  '}<span className="text-blue-400">i18nKey</span>=<span className="text-green-400">"appDescription"</span></p>
+        <p>{'  '}<span className="text-blue-400">i18nKey</span>=<span className="text-green-400">"appDescriptionWithStrong"</span></p>
         <p>{'  '}<span className="text-blue-400">ns</span>=<span className="text-green-400">"common"</span></p>
         <p>{'  '}<span className="text-blue-400">components</span>={'{{ 0: <strong /> }}'}</p>
         <p>{'/'}{'>'}  <span className="text-slate-500">{'// <0> が <strong> に置換'}</span></p>

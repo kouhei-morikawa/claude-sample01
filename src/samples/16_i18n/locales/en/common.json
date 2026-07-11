@@ -1,6 +1,7 @@
 {
   "appTitle": "Internationalization Sample",
   "appDescription": "Learn basic i18n patterns using react-i18next.",
+  "appDescriptionWithStrong": "Learn basic <0>i18n patterns</0> using react-i18next.",
   "languageLabel": "Language",
   "currentLang": "Current language: {{lang}}",
   "hello": "Hello, {{name}}!",
