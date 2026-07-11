@@ -1,0 +1,7 @@
+{
+  "NETWORK_ERROR": "Could not connect to the network. Please check your connection.",
+  "NOT_FOUND": "The requested resource was not found.",
+  "SERVER_ERROR": "A server error occurred. Please try again later.",
+  "UNAUTHORIZED": "Authentication is required. Please sign in again.",
+  "UNKNOWN": "An unknown error occurred (code: {{code}}). Please contact support."
+}

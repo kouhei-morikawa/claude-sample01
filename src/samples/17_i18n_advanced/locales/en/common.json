@@ -1,0 +1,25 @@
+{
+  "title": "i18n in Practice",
+  "description": "Learn practical react-i18next patterns commonly used in production: form validation, API error codes, list rendering, date/number formatting, and detecting missing translation keys.",
+  "languageNote": "This sample uses its own i18n instance, independent from sample 16.",
+  "buttons": {
+    "submit": "Submit",
+    "reset": "Reset",
+    "japanese": "日本語",
+    "english": "English",
+    "showMissingKey": "Show a missing key"
+  },
+  "sections": {
+    "validation": "1. Localizing form validation",
+    "apiError": "2. Localizing API error codes",
+    "list": "3. Localizing list rendering (Intl.ListFormat)",
+    "format": "4. Locale-aware date & number formatting (Intl)",
+    "missingKey": "5. Detecting missing translation keys"
+  },
+  "fruits": {
+    "apple": "apple",
+    "banana": "banana",
+    "orange": "orange",
+    "grape": "grape"
+  }
+}

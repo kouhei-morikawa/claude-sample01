@@ -1,0 +1,9 @@
+{
+  "required": "{{field}} is required",
+  "minLength": "{{field}} must be at least {{min}} characters",
+  "email": "Please enter a valid email address",
+  "fields": {
+    "email": "Email",
+    "password": "Password"
+  }
+}

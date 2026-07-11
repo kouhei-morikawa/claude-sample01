@@ -1,0 +1,25 @@
+{
+  "title": "多言語対応（実践編）",
+  "description": "react-i18next を実務で使う際によく登場するパターン（バリデーション・APIエラー・リスト表示・日付/数値フォーマット・翻訳漏れ検知）を学びます。",
+  "languageNote": "このサンプルはサンプル16とは独立した i18n インスタンスを使用しています。",
+  "buttons": {
+    "submit": "送信",
+    "reset": "リセット",
+    "japanese": "日本語",
+    "english": "English",
+    "showMissingKey": "存在しないキーを表示"
+  },
+  "sections": {
+    "validation": "1. フォームバリデーションの多言語化",
+    "apiError": "2. APIエラーコードの多言語化",
+    "list": "3. リスト表示の多言語化（Intl.ListFormat）",
+    "format": "4. 日付・数値のロケール対応（Intl）",
+    "missingKey": "5. 翻訳キー欠落の検知"
+  },
+  "fruits": {
+    "apple": "りんご",
+    "banana": "バナナ",
+    "orange": "オレンジ",
+    "grape": "ぶどう"
+  }
+}

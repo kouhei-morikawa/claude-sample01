@@ -23,6 +23,7 @@ import MemoCallbackDemo  from './13_memo_callback'
 import RouterDemo        from './14_router'
 import TodoAppDemo       from './15_todo_app'
 import I18nDemo          from './16_i18n'
+import I18nAdvancedDemo  from './17_i18n_advanced'
 
 // -------------------------------------------------
 // サンプル一覧の定義
@@ -51,6 +52,7 @@ const SAMPLES: Sample[] = [
   { id: '14', label: 'React Router',          level: 4, component: RouterDemo },
   { id: '15', label: 'Todo アプリ（総合演習）', level: 5, component: TodoAppDemo },
   { id: '16', label: '多言語対応（i18n）',     level: 5, component: I18nDemo },
+  { id: '17', label: '多言語対応（実践編）',   level: 5, component: I18nAdvancedDemo },
 ]
 
 // レベルに対応したバッジ背景色（動的なので Tailwind クラスではなくインラインで指定）
